@@ -14,9 +14,16 @@ def process(i):   #  Основная функция выполнения зап
         json = {"id": i}
     )
     r.raise_for_status()
-    return print(r.text)
 
+def searchbyid(i):  # Функция поиска только что созданной записи
+    r = session.get(
+        f"https://petstore.swagger.io/v2/pet/{i}",
+        json = {}
+    )
+    r.raise_for_status()
+    return print(r.text)
 
 if __name__ == "__main__":
     for i in lines:
         process(i)
+        searchbyid(i)
