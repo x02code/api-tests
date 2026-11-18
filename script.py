@@ -1,0 +1,22 @@
+import requests
+
+with open("file.txt", "r", encoding="utf-8") as f:   # Чтение строк из файла file.txt
+    lines = f.read().splitlines()
+
+
+session = requests.Session()  # Создание сессии с передачей заголовков
+session.headers.update({'accept': 'application/json','Content-Type': 'application/json'})
+
+
+def process(i):   #  Основная функция выполнения запроса
+    r = session.post(
+        "https://petstore.swagger.io/v2/pet",
+        json = {"id": i}
+    )
+    r.raise_for_status()
+    return print(r.text)
+
+
+if __name__ == "__main__":
+    for i in lines:
+        process(i)
